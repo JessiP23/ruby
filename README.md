@@ -22,7 +22,32 @@ This project is a full stack application developed using Next.js for the fronten
 
 ## Setup Instructions
 
+### 1. .env
+```bash
+.env
+
+JWT_SECRET= Your key
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY= Your key
+CLERK_SECRET_KEY= Your key
+```
+
 ### 2. install dependencies
 
 ```bash
 npm install
+```
+### 3. Prepare the frontend
+
+```bash
+cd ruby
+npm run dev
+```
+### 4. Prepare the backend
+
+```bash
+nodemon server.js
+```
+
+
+
+
