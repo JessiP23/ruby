@@ -1,10 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useUser, useClerk } from '@clerk/nextjs';
 import api from '../../services/api';
 import ExpenseChart from '@/components/ExpenseChart';
 import Sidebar from '@/components/Sidebar';
 
 const Dashboard = () => {
+  const { isLoaded, user } = useUser();
+  const { openSignIn } = useClerk(); // Add this hook to open the sign-in modal
   const [transactions, setTransactions] = useState([]);
   const [budget, setBudget] = useState(0);
   const [remainingBudget, setRemainingBudget] = useState(0);
@@ -12,6 +15,8 @@ const Dashboard = () => {
   const [newBudget, setNewBudget] = useState('');
 
   useEffect(() => {
+    if (!isLoaded || !user) return; // Wait for user to be loaded and authenticated
+
     const fetchData = async () => {
       try {
         // Fetch transactions
@@ -45,10 +50,16 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, [transactions]);
+  }, [isLoaded, user, transactions]);
 
   const handleBudgetSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      // Redirect to sign-in page if not authenticated
+      openSignIn();
+      return;
+    }
 
     try {
       // Send the new budget to the server
@@ -64,6 +75,12 @@ const Dashboard = () => {
   };
 
   const deleteExpense = async (id) => {
+    if (!user) {
+      // Redirect to sign-in page if not authenticated
+      openSignIn();
+      return;
+    }
+
     try {
       // Make the delete request
       await api.delete(`/transactions/${id}`);
@@ -94,6 +111,17 @@ const Dashboard = () => {
       console.error('Error deleting expense', error);
     }
   };
+
+  if (!isLoaded) return (
+    <div>Loading...</div>
+  ); 
+
+  if (!user) {
+    // If not authenticated, redirect to sign-in page
+    return (
+      <div className='text-center py-10 text-2xl'>Please <button onClick={openSignIn} className="text-blue-500">sign in</button> to access this page.</div>
+    );
+  }
 
   return (
     <div>

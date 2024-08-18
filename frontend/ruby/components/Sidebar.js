@@ -1,15 +1,26 @@
 'use client';
 
 import React, { useState } from 'react';
-import './styles.css'
-
-import { FaHome, FaTachometerAlt, FaThLarge, FaPowerOff, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useClerk } from '@clerk/nextjs'; 
+import './styles.css';
+import { FaHome, FaTachometerAlt, FaThLarge, FaPowerOff, FaArrowLeft, FaArrowRight, FaSignInAlt } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useClerk(); 
+  const router = useRouter();
 
   const handleToggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleSignInClick = () => {
+    router.push('/sign-in');
+  }
+
+  const handleLogout = () => {
+    signOut(); // Call the signOut function
   };
 
   return (
@@ -38,12 +49,21 @@ const Sidebar = () => {
             {isOpen && <span className="nav-text">Categories</span>}
           </a>
         </li>
-        <li>
-          <a href="#" className="nav-item">
+        {user ? (
+          <li>
+          <a href="/" className="nav-item" onClick={handleLogout}>
             <FaPowerOff size={28} />
             {isOpen && <span className="nav-text">Logout</span>}
           </a>
         </li>
+        ) : (
+          <li>
+            <a href='/sign-in' className='nav-item' onClick={handleSignInClick}>
+              <FaSignInAlt size={28} />
+              {isOpen && <span className='nav-text'>Sign In</span>}
+            </a>
+          </li>
+        )}
       </ul>
     </div>
   );
