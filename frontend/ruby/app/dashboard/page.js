@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import ExpenseChart from '@/components/ExpenseChart';
+import Sidebar from '@/components/Sidebar';
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
@@ -72,6 +73,7 @@ const Dashboard = () => {
 
   return (
     <div>
+      <Sidebar />
       <h1>Dashboard</h1>
       <h2>Current Budget: ${budget}</h2>
       <h3>Recent Transactions</h3>

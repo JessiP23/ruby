@@ -1,6 +1,8 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import api from '@/services/api';
+import Sidebar from '@/components/Sidebar';
+import './styles.css'
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -32,24 +34,27 @@ const Categories = () => {
   };
 
   return (
-    <div>
-      <h1>Categories</h1>
-      <ul>
-        {categories.map(category => (
-          <li key={category.id}>{category.name}</li>
-        ))}
-      </ul>
-      <h2>Add New Category</h2>
-      <form onSubmit={handleAddCategory}>
-        <input
-          type="text"
-          value={newCategoryName}
-          onChange={(e) => setNewCategoryName(e.target.value)}
-          placeholder="Category Name"
-          required
-        />
-        <button type="submit">Add Category</button>
-      </form>
+    <div className='page-container'>
+      <Sidebar />
+      <div className='content text-center'>
+        <h1 className='text-3xl'>Categories</h1>
+        <ul>
+          {categories.map(category => (
+            <li key={category.id}>{category.name}</li>
+          ))}
+        </ul>
+        <h2>Add New Category</h2>
+        <form onSubmit={handleAddCategory}>
+          <input
+            type="text"
+            value={newCategoryName}
+            onChange={(e) => setNewCategoryName(e.target.value)}
+            placeholder="Category Name"
+            required
+          />
+          <button type="submit">Add Category</button>
+        </form>
+      </div>
     </div>
   );
 };
