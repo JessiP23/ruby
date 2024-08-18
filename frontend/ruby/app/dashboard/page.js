@@ -1,5 +1,4 @@
 'use client';
-// pages/dashboard.js
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import ExpenseChart from '@/components/ExpenseChart';
@@ -8,16 +7,19 @@ import Sidebar from '@/components/Sidebar';
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   const [budget, setBudget] = useState(0);
+  const [remainingBudget, setRemainingBudget] = useState(0);
   const [data, setData] = useState({ categories: [], expenses: [] });
+  const [newBudget, setNewBudget] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch transactions
         const transactionResponse = await api.get('/transactions');
         const transactionsData = transactionResponse.data;
         setTransactions(transactionsData);
 
-        // Process transactions to get categories and expenses
+        // Calculate expenses and categories
         const categoryMap = new Map();
         transactionsData.forEach((transaction) => {
           const categoryName = transaction.Category ? transaction.Category.name : 'No Category';
@@ -32,16 +34,34 @@ const Dashboard = () => {
 
         setData({ categories, expenses });
 
-        // Fetch the budget (assuming an endpoint exists)
+        // Fetch the budget
         const budgetResponse = await api.get('/budgets');
-        setBudget(budgetResponse.data);
+        const budgetData = budgetResponse.data;
+        setBudget(budgetData);
+        setRemainingBudget(budgetData - expenses.reduce((acc, amount) => acc + amount, 0));
       } catch (error) {
         console.error('Error fetching data', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [transactions]);
+
+  const handleBudgetSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Send the new budget to the server
+      await api.post('/budgets', { amount: parseFloat(newBudget) });
+
+      // Update local state
+      setBudget(parseFloat(newBudget));
+      setRemainingBudget(parseFloat(newBudget) - data.expenses.reduce((acc, amount) => acc + amount, 0));
+      setNewBudget('');
+    } catch (error) {
+      console.error('Error setting budget', error);
+    }
+  };
 
   const deleteExpense = async (id) => {
     try {
@@ -52,7 +72,7 @@ const Dashboard = () => {
       const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
       setTransactions(updatedTransactions);
 
-      // Update the category data
+      // Update category data
       const updatedCategoryMap = new Map();
       updatedTransactions.forEach((transaction) => {
         const categoryName = transaction.Category ? transaction.Category.name : 'No Category';
@@ -66,6 +86,10 @@ const Dashboard = () => {
       const updatedExpenses = Array.from(updatedCategoryMap.values());
 
       setData({ categories: updatedCategories, expenses: updatedExpenses });
+
+      // Update budget and remaining budget
+      const totalExpenses = updatedExpenses.reduce((acc, amount) => acc + amount, 0);
+      setRemainingBudget(budget - totalExpenses);
     } catch (error) {
       console.error('Error deleting expense', error);
     }
@@ -78,6 +102,31 @@ const Dashboard = () => {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
           <h2 className="text-xl text-gray-700">Current Budget: ${budget}</h2>
+          <h3 className={`text-xl ${remainingBudget < 0 ? 'text-red-500' : 'text-gray-700'}`}>
+            Remaining Budget: ${remainingBudget}
+          </h3>
+        </div>
+
+        <div className="mb-8">
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Set Your Budget</h3>
+          <form onSubmit={handleBudgetSubmit} className="flex flex-col space-y-4 mb-6">
+            <input
+              type="number"
+              value={newBudget}
+              onChange={(e) => setNewBudget(e.target.value)}
+              placeholder="Enter new budget"
+              min="0"
+              step="0.01"
+              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              Update Budget
+            </button>
+          </form>
         </div>
 
         <div className="mb-8">
