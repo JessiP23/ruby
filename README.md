@@ -1,5 +1,9 @@
 # Full Stack App
 
+![Alt text](./images//categories.jpg)
+![Alt text](./images//home.jpg)
+![Alt text](./images//responsive.jpg)
+
 ## Overview
 
 This project is a full stack application developed using Next.js for the frontend, Node.js for the backend, and PostgreSQL for the database. It includes features for user authentication, data management, and interactive dashboards.
@@ -47,6 +51,8 @@ npm run dev
 ```bash
 nodemon server.js
 ```
+
+
 
 
 
