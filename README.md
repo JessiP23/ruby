@@ -26,8 +26,3 @@ This project is a full stack application developed using Next.js for the fronten
 
 ```bash
 npm install
-
-### 1. Clone the Repository
-
-```bash
-npm install
