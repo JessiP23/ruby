@@ -8,7 +8,7 @@ export default function Home() {
     <main>
       <Sidebar />
       <div className="text-center">
-      <h1 className="text-4xl p-9">Expense Tracker</h1>
+      <h1 className="text-4xl p-9">Ruby Expense Tracker</h1>
       <AddTransaction />
       <TransactionList />
       </div>
