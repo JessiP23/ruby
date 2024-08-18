@@ -22,8 +22,12 @@ This project is a full stack application developed using Next.js for the fronten
 
 ## Setup Instructions
 
+### 2. install dependencies
+
+```bash
+npm install
+
 ### 1. Clone the Repository
 
 ```bash
-git clone <https://github.com/JessiP23/ruby.git>
-cd <ruby>
+npm install
