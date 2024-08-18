@@ -126,8 +126,6 @@ const ExpenseChart = ({ data }) => {
             <Bar data={barChartData} options={chartOptions} />
             <h3>Expense Distribution (Doughnut Chart)</h3>
             <Doughnut data={doughnutChartData} options={{ responsive: true }} />
-            <h3>Daily Expenses (Logarithmic Scale Line Chart)</h3>
-            <Line data={logScaleChartData} options={chartOptions} />
         </div>
     );
 };
