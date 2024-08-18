@@ -1,4 +1,5 @@
 'use client'
+// pages/dashboard.js
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import ExpenseChart from '@/components/ExpenseChart';
@@ -14,24 +15,25 @@ const Dashboard = () => {
         const transactionResponse = await api.get('/transactions');
         const transactionsData = transactionResponse.data;
         setTransactions(transactionsData);
-// Process transactions to get categories and expenses
-const categoryMap = new Map();
-transactionsData.forEach((transaction) => {
-  const categoryName = transaction.Category ? transaction.Category.name : 'Uncategorized';
-  if (!categoryMap.has(categoryName)) {
-    categoryMap.set(categoryName, 0);
-  }
-  categoryMap.set(categoryName, categoryMap.get(categoryName) + transaction.amount);
-});
 
-const categories = Array.from(categoryMap.keys());
-const expenses = Array.from(categoryMap.values());
+        // Process transactions to get categories and expenses
+        const categoryMap = new Map();
+        transactionsData.forEach((transaction) => {
+          const categoryName = transaction.Category ? transaction.Category.name : 'No Category';
+          if (!categoryMap.has(categoryName)) {
+            categoryMap.set(categoryName, 0);
+          }
+          categoryMap.set(categoryName, categoryMap.get(categoryName) + transaction.amount);
+        });
 
-setData({ categories, expenses });
+        const categories = Array.from(categoryMap.keys());
+        const expenses = Array.from(categoryMap.values());
 
-// Fetch the budget (assuming an endpoint exists)
-const budgetResponse = await api.get('/budgets');
-setBudget(budgetResponse.data);
+        setData({ categories, expenses });
+
+        // Fetch the budget (assuming an endpoint exists)
+        const budgetResponse = await api.get('/budgets');
+        setBudget(budgetResponse.data);
       } catch (error) {
         console.error('Error fetching data', error);
       }
@@ -52,7 +54,7 @@ setBudget(budgetResponse.data);
           </li>
         ))}
       </ul>
-      <h3>Expenses by Category</h3>
+      <h3>Expenses Overview</h3>
       <ExpenseChart data={data} />
     </div>
   );
