@@ -1,0 +1,21 @@
+.transaction-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .form-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .field-column {
+    width: 200px; /* Adjust width as needed */
+  }
+  
+  .field-cell {
+    font-weight: bold;
+  }
+  
+  
+  

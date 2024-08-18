@@ -1,4 +1,5 @@
 'use client'
+import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react';
 import React, { useState, useEffect } from 'react';
 
 function TransactionList() {
@@ -24,16 +25,28 @@ function TransactionList() {
   }, []);
 
   return (
-    <div>
-      <h2>Transaction List</h2>
-      <ul>
-        {transactions.map((transaction) => (
-          <li key={transaction.id}>
-            User ID: {transaction.userId}, Category ID: {transaction.categoryId}, 
-            Amount: ${transaction.amount}, Date: {new Date(transaction.date).toLocaleDateString()}
-          </li>
-        ))}
-      </ul>
+    <div className="flex justify-center min-h-screen"> 
+      <div className="w-full max-w-4xl"> 
+        <h2 className="text-4xl font-bold mb-6 text-center pb-11">Transaction List</h2> 
+        <Table aria-label="Transaction List Table" className="w-full">
+          <TableHeader>
+            <TableColumn className='text-2xl'>User ID</TableColumn>
+            <TableColumn className='text-2xl'>Category ID</TableColumn>
+            <TableColumn className='text-2xl'>Amount</TableColumn>
+            <TableColumn className='text-2xl'>Date</TableColumn>
+          </TableHeader>
+          <TableBody>
+            {transactions.map((transaction) => (
+              <TableRow key={transaction.id}>
+                <TableCell className='text-xl'>{transaction.userId}</TableCell>
+                <TableCell className='text-xl'>{transaction.categoryId}</TableCell>
+                <TableCell className='text-xl'>${transaction.amount}</TableCell>
+                <TableCell className='text-2xl'>{new Date(transaction.date).toLocaleDateString()}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

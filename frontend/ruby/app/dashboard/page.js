@@ -74,21 +74,23 @@ const Dashboard = () => {
   return (
     <div>
       <Sidebar />
-      <h1>Dashboard</h1>
-      <h2>Current Budget: ${budget}</h2>
-      <h3>Recent Transactions</h3>
-      <ul>
-        {transactions.map(transaction => (
-          <li key={transaction.id}>
-            {transaction.date}: ${transaction.amount} - {transaction.Category ? transaction.Category.name : 'No Category'}
-            <button onClick={() => deleteExpense(transaction.id)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-      <h3>Expenses Overview</h3>
-      <ExpenseChart data={data} />
+      <div className='text-center'>
+        <h1 className='p-8 text-4xl'>Dashboard</h1>
+        <h2>Current Budget: ${budget}</h2>
+        <h3>Recent Transactions</h3>
+        <ul>
+          {transactions.map(transaction => (
+            <li key={transaction.id}>
+              {transaction.date}: ${transaction.amount} - {transaction.Category ? transaction.Category.name : 'No Category'}
+              <button onClick={() => deleteExpense(transaction.id)}>
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+        <h3>Expenses Overview</h3>
+        <ExpenseChart data={data} />
+      </div>
     </div>
   );
 };

@@ -43,7 +43,6 @@ function AddTransaction() {
 
       if (response.ok) {
         alert('Transaction added successfully');
-        // Optionally, reset form fields
         setUserId('');
         setCategoryId('');
         setAmount('');
@@ -57,50 +56,67 @@ function AddTransaction() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>User ID:</label>
-        <input
-          type="text"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          required
-        />
+    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 mb-36 bg-white shadow-md rounded-lg">
+      <h2 className="text-2xl font-bold mb-6">Add Transaction</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col text-blue-900">
+          <label htmlFor="userId" className="mb-2 font-semibold text-gray-700">User ID:</label>
+          <input
+            id="userId"
+            type="text"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+            className="p-2 border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none"
+            placeholder='Only numbers e.g. 1234'
+            required
+          />
+        </div>
+        <div className="flex flex-col text-blue-900">
+          <label htmlFor="categoryId" className="mb-2 font-semibold text-gray-700">Category:</label>
+          <select
+            id="categoryId"
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+            className="p-2 border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none"
+            required
+          >
+            <option value="" className='text-blue-900'>Select a category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id} className='text-blue-900'>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex flex-col text-blue-900">
+          <label htmlFor="amount" className="mb-2 font-semibold text-gray-700">Amount:</label>
+          <input
+            id="amount"
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="p-2 border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none"
+            required
+          />
+        </div>
+        <div className="flex flex-col text-blue-900">
+          <label htmlFor="date" className="mb-2 font-semibold text-gray-700">Date:</label>
+          <input
+            id="date"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="p-2 border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none"
+            required
+          />
+        </div>
       </div>
-      <div>
-        <label>Category:</label>
-        <select
-          value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
-          required
-        >
-          <option value="">Select a category</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label>Amount:</label>
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>Date:</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit">Add Transaction</button>
+      <button
+        type="submit"
+        className="mt-6 w-full py-2 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Add Transaction
+      </button>
     </form>
   );
 }

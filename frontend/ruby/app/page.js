@@ -7,9 +7,11 @@ export default function Home() {
   return (
     <main>
       <Sidebar />
-      <h1>Expnse Tracker</h1>
+      <div className="text-center">
+      <h1 className="text-4xl p-9">Expense Tracker</h1>
       <AddTransaction />
       <TransactionList />
+      </div>
     </main>
   );
 }
