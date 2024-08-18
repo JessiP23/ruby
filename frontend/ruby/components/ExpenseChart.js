@@ -122,9 +122,9 @@ const ExpenseChart = ({ data }) => {
 
     return (
         <div>
-            <h3>Expenses by Category (Bar Chart)</h3>
+            <h3 className='text-green-800'>Expenses by Category (Bar Chart)</h3>
             <Bar data={barChartData} options={chartOptions} />
-            <h3>Expense Distribution (Doughnut Chart)</h3>
+            <h3 className='text-green-900'>Expense Distribution (Doughnut Chart)</h3>
             <Doughnut data={doughnutChartData} options={{ responsive: true }} />
         </div>
     );

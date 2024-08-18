@@ -33,26 +33,34 @@ const Categories = () => {
   };
 
   return (
-    <div className='page-container'>
+    <div>
       <Sidebar />
-      <div className='content text-center'>
-        <h1 className='text-3xl'>Categories</h1>
-        <ul>
+      <div className='flex-1 p-6 '>
+        <h1 className='text-3xl font-bold text-gray-600 mb-4 text-center py-8'>Categories</h1>
+        <ul className='mb-6 space-y-2 w-[30%] max-w-xs mx-auto'>
           {categories.map(category => (
-            <li key={category.id}>{category.name}</li>
+            <li key={category.id} className='bg-white p-4 rounded-lg shadow-md text-lg text-blue-800 text-center'>{category.name}</li>
           ))}
         </ul>
-        <h2>Add New Category</h2>
-        <form onSubmit={handleAddCategory}>
-          <input
-            type="text"
-            value={newCategoryName}
-            onChange={(e) => setNewCategoryName(e.target.value)}
-            placeholder="Category Name"
-            required
-          />
-          <button type="submit">Add Category</button>
-        </form>
+        <div className='bg-white p-6 rounded-lg shadow-md w-[30%] max-w-xs mx-auto'>
+          <h2 className='text-2xl font-semibold mb-4 text-blue-900'>Add New Category</h2>
+          <form onSubmit={handleAddCategory} className='flex flex-col space-y-4'>
+            <input
+              type="text"
+              value={newCategoryName}
+              onChange={(e) => setNewCategoryName(e.target.value)}
+              placeholder="Category Name"
+              required
+              className='p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-800'
+            />
+            <button
+              type="submit"
+              className='bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400'
+            >
+              Add Category
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
