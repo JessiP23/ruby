@@ -1,36 +1,46 @@
+/* Sidebar styling */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 60px;
+  width: 60px; /* Width of the collapsed sidebar */
   height: 100vh; 
   transition: width 0.3s;
   overflow: hidden; 
+  color: #fff;
+  z-index: 1000;
 }
 
+/* Sidebar open state */
 .sidebar.open {
-  width: 200px; 
+  width: 200px; /* Width of the expanded sidebar */
 }
 
+/* Sidebar header styling */
 .sidebar-header {
   display: flex;
   justify-content: flex-end;
   padding: 10px;
 }
 
+/* Toggle button styling */
 .toggle-btn {
   background: none;
   border: none;
   cursor: pointer;
   color: #fff;
+  font-size: 24px;
+  z-index: 1001; /* Ensure the button is on top of the sidebar */
 }
 
+/* Sidebar navigation styling */
 .sidebar-nav {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* Navigation items styling */
 .nav-item {
   display: flex;
   align-items: center;
@@ -40,30 +50,82 @@
   transition: background-color 0.2s;
 }
 
+/* Hover effect for navigation items */
 .nav-item:hover {
   background-color: #444;
 }
 
+/* Text styling for navigation items */
 .nav-text {
   margin-left: 10px;
   font-size: 18px;
 }
 
+/* Icon size for navigation items */
 .nav-item svg {
   font-size: 28px;
 }
 
+/* Margin bottom for each nav item except the last */
 .sidebar-nav li:not(:last-child) {
   margin-bottom: 10px;
 }
 
-/* Content styles */
+/* Content styling */
 .content {
   margin-left: 60px; /* Adjust this to match the collapsed sidebar width */
   padding: 20px;
   transition: margin-left 0.3s; /* Smooth transition when the sidebar expands/collapses */
 }
 
+/* Adjust content margin for expanded sidebar */
 .sidebar.open ~ .content {
   margin-left: 200px; /* Adjust this to match the expanded sidebar width */
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) { /* For tablets and smaller devices */
+  .sidebar {
+    width: 0; /* Hide the sidebar by default */
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure the sidebar is above other content */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  }
+
+  .sidebar.open {
+    width: 200px; /* Width when sidebar is opened */
+  }
+
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001; /* Ensure the button is above the sidebar */
+  }
+
+  .content {
+    margin-left: 0; /* Adjust content margin for collapsed sidebar */
+  }
+
+  .sidebar.open ~ .content {
+    margin-left: 0; /* No margin needed for content when sidebar is open */
+  }
+}
+
+@media (max-width: 576px) { /* For small devices */
+  .toggle-btn {
+    font-size: 20px; /* Adjust the size of the toggle button */
+  }
+
+  .nav-text {
+    font-size: 16px; /* Smaller font size for nav text */
+  }
+
+  .nav-item {
+    padding: 12px; /* Smaller padding for nav items */
+  }
 }

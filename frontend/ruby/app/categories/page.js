@@ -39,21 +39,25 @@ const Categories = () => {
   if (!user) {
     // If not authenticated, redirect to sign-in page
     return (
-      <div className='text-center py-10 text-2xl'>Please <button onClick={openSignIn} className="text-blue-500">sign in</button> to access this page.</div>
+      <div className='text-center py-10 text-2xl'>
+        Please <button onClick={openSignIn} className="text-blue-500">sign in</button> to access this page.
+      </div>
     );
   }
 
   return (
-    <div>
+    <div className='flex flex-col md:flex-row'>
       <Sidebar />
-      <div className='flex-1 p-6 '>
+      <main className='flex-1 p-6'>
         <h1 className='text-3xl font-bold text-gray-600 mb-4 text-center py-8'>Categories</h1>
-        <ul className='mb-6 space-y-2 w-[30%] max-w-xs mx-auto'>
+        <ul className='mb-6 space-y-2 w-full md:w-[50%] lg:w-[30%] mx-auto'>
           {categories.map(category => (
-            <li key={category.id} className='bg-white p-4 rounded-lg shadow-md text-lg text-blue-800 text-center'>{category.name}</li>
+            <li key={category.id} className='bg-white p-4 rounded-lg shadow-md text-lg text-blue-800 text-center'>
+              {category.name}
+            </li>
           ))}
         </ul>
-        <div className='bg-white p-6 rounded-lg shadow-md w-[30%] max-w-xs mx-auto'>
+        <div className='bg-white p-6 rounded-lg shadow-md w-full md:w-[50%] lg:w-[30%] mx-auto'>
           <h2 className='text-2xl font-semibold mb-4 text-blue-900'>Add New Category</h2>
           <form onSubmit={handleAddCategory} className='flex flex-col space-y-4'>
             <input
@@ -72,7 +76,7 @@ const Categories = () => {
             </button>
           </form>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

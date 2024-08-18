@@ -119,25 +119,27 @@ const Dashboard = () => {
   if (!user) {
     // If not authenticated, redirect to sign-in page
     return (
-      <div className='text-center py-10 text-2xl'>Please <button onClick={openSignIn} className="text-blue-500">sign in</button> to access this page.</div>
+      <div className='text-center py-10 text-base md:text-xl'>
+        Please <button onClick={openSignIn} className="text-blue-500 underline">sign in</button> to access this page.
+      </div>
     );
   }
 
   return (
-    <div>
+    <div className="flex flex-col md:flex-row">
       <Sidebar />
-      <div className="max-w-6xl mx-auto p-6 bg-gray-200 rounded-lg shadow-md">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
-          <h2 className="text-xl text-gray-700">Current Budget: ${budget}</h2>
-          <h3 className={`text-xl ${remainingBudget < 0 ? 'text-red-500' : 'text-gray-700'}`}>
+      <div className="flex-1 p-4 md:p-6 bg-gray-200 rounded-lg shadow-md mx-auto max-w-4xl md:max-w-6xl">
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <h2 className="text-lg md:text-xl text-gray-700">Current Budget: ${budget}</h2>
+          <h3 className={`text-lg md:text-xl ${remainingBudget < 0 ? 'text-red-500' : 'text-gray-700'}`}>
             Remaining Budget: ${remainingBudget}
           </h3>
         </div>
 
-        <div className="mb-8">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Set Your Budget</h3>
-          <form onSubmit={handleBudgetSubmit} className="flex flex-col space-y-4 mb-6">
+        <div className="mb-6 md:mb-8">
+          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">Set Your Budget</h3>
+          <form onSubmit={handleBudgetSubmit} className="flex flex-col space-y-4 mb-4 md:mb-6">
             <input
               type="number"
               value={newBudget}
@@ -145,30 +147,30 @@ const Dashboard = () => {
               placeholder="Enter new budget"
               min="0"
               step="0.01"
-              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 md:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="bg-blue-500 text-white py-1 md:py-2 px-3 md:px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               Update Budget
             </button>
           </form>
         </div>
 
-        <div className="mb-8">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Recent Transactions</h3>
+        <div className="mb-6 md:mb-8">
+          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">Recent Transactions</h3>
           <ul className="space-y-4">
             {transactions.map(transaction => (
-              <li key={transaction.id} className="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm hover:bg-gray-50">
-                <div className="flex flex-col">
+              <li key={transaction.id} className="flex flex-col sm:flex-row justify-between items-center p-4 bg-white rounded-lg shadow-sm hover:bg-gray-50">
+                <div className="flex flex-col text-sm sm:text-base">
                   <span className="text-gray-700">{transaction.date}</span>
                   <span className="text-gray-900 font-semibold">${transaction.amount}</span>
                   <span className="text-gray-600">{transaction.Category ? transaction.Category.name : 'No Category'}</span>
                 </div>
                 <button
-                  className="text-red-500 hover:text-red-700 font-semibold"
+                  className="text-red-500 hover:text-red-700 font-semibold mt-2 sm:mt-0"
                   onClick={() => deleteExpense(transaction.id)}
                 >
                   Delete
@@ -179,7 +181,7 @@ const Dashboard = () => {
         </div>
 
         <div>
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">Expenses Overview</h3>
+          <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-4">Expenses Overview</h3>
           <ExpenseChart data={data} />
         </div>
       </div>
