@@ -4,9 +4,21 @@
 ![Alt text](./images//home.jpg)
 ![Alt text](./images//responsive.jpg)
 
+## Table of Contents
+- [Introduction](#overview)
+- [Title](#project-title)
+- [Features](#features)
+- [Requisites](#prerequisites)
+- [Instructions](#setup-instructions)
+- [Demo](#demo)
+
 ## Overview
 
 This project is a full stack application developed using Next.js for the frontend, Node.js for the backend, and PostgreSQL for the database. It includes features for user authentication, data management, and interactive dashboards.
+
+## Project Title
+
+Real-Time Expense Tracker Dashboard for Ruby Card Users. This app allows Ruby Card users to track their expenses in real time.
 
 ## Features
 
@@ -53,7 +65,8 @@ npm run dev
 nodemon server.js
 ```
 
-
+## Demo
+![Live Demo](https://youtu.be/_p0HdTTMKzY)
 
 
 
