@@ -1,59 +1,69 @@
-/* Sidebar Container */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 60px; /* Initial width showing only icons */
-    background-color: #333;
-    color: #fff;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .sidebar.open {
-    width: 200px; /* Expanded width showing icons and text */
-  }
-  
-  .sidebar-header {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-  }
-  
-  .toggle-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  .sidebar-nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .sidebar-nav li {
-    padding: 10px;
-  }
-  
-  .nav-item {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .nav-item:hover {
-    background-color: #444;
-  }
-  
-  .nav-text {
-    margin-left: 10px;
-  }
-  
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 100vh; 
+  transition: width 0.3s;
+  overflow: hidden; 
+}
+
+.sidebar.open {
+  width: 200px; 
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+  background-color: #444;
+}
+
+.nav-text {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.nav-item svg {
+  font-size: 28px;
+}
+
+.sidebar-nav li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* Content styles */
+.content {
+  margin-left: 60px; /* Adjust this to match the collapsed sidebar width */
+  padding: 20px;
+  transition: margin-left 0.3s; /* Smooth transition when the sidebar expands/collapses */
+}
+
+.sidebar.open ~ .content {
+  margin-left: 200px; /* Adjust this to match the expanded sidebar width */
+}

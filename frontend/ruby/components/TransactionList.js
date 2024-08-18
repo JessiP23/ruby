@@ -1,12 +1,11 @@
 'use client'
-import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from '@nextui-org/react';
 import React, { useState, useEffect } from 'react';
+import './style.css';
 
 function TransactionList() {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    // Fetch transactions from the backend
     const fetchTransactions = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/transactions');
@@ -25,27 +24,19 @@ function TransactionList() {
   }, []);
 
   return (
-    <div className="flex justify-center min-h-screen"> 
+    <div className="flex justify-center min-h-screen p-4"> 
       <div className="w-full max-w-4xl"> 
         <h2 className="text-4xl font-bold mb-6 text-center pb-11">Transaction List</h2> 
-        <Table aria-label="Transaction List Table" className="w-full">
-          <TableHeader>
-            <TableColumn className='text-2xl'>User ID</TableColumn>
-            <TableColumn className='text-2xl'>Category ID</TableColumn>
-            <TableColumn className='text-2xl'>Amount</TableColumn>
-            <TableColumn className='text-2xl'>Date</TableColumn>
-          </TableHeader>
-          <TableBody>
-            {transactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell className='text-xl'>{transaction.userId}</TableCell>
-                <TableCell className='text-xl'>{transaction.categoryId}</TableCell>
-                <TableCell className='text-xl'>${transaction.amount}</TableCell>
-                <TableCell className='text-2xl'>{new Date(transaction.date).toLocaleDateString()}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <div className="grid grid-cols-1 gap-3">
+          {transactions.map((transaction) => (
+            <div key={transaction.id} className="bg-blue-700 p-4 rounded-lg shadow-lg">
+              <h3 className="text-2xl">Date: {new Date(transaction.date).toLocaleDateString()}</h3>
+              <div className="text-lg font-semibold">User ID: {transaction.userId}</div>
+              <div className="text-lg">Category ID: {transaction.categoryId}</div>
+              <div className="text-lg">Amount: ${transaction.amount}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

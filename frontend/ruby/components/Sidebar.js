@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import './styles.css'
 
-import { FaHome, FaMusic, FaSmile, FaSignOutAlt, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaHome, FaTachometerAlt, FaThLarge, FaPowerOff, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,31 +16,31 @@ const Sidebar = () => {
     <div className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
         <button className="toggle-btn" onClick={handleToggleSidebar}>
-          {isOpen ? <FaArrowLeft /> : <FaArrowRight />}
+          {isOpen ? <FaArrowLeft size={24} /> : <FaArrowRight size={24} />}
         </button>
       </div>
       <ul className="sidebar-nav">
         <li>
           <a href="/" className="nav-item">
-            <FaHome />
+            <FaHome size={28} />
             {isOpen && <span className="nav-text">Home</span>}
           </a>
         </li>
         <li>
           <a href="/dashboard" className="nav-item">
-            <FaMusic />
+            <FaTachometerAlt size={28} />
             {isOpen && <span className="nav-text">Dashboard</span>}
           </a>
         </li>
         <li>
           <a href="/categories" className="nav-item">
-            <FaSmile />
+            <FaThLarge size={28} />
             {isOpen && <span className="nav-text">Categories</span>}
           </a>
         </li>
         <li>
           <a href="#" className="nav-item">
-            <FaSignOutAlt />
+            <FaPowerOff size={28} />
             {isOpen && <span className="nav-text">Logout</span>}
           </a>
         </li>

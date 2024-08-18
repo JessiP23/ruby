@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/api';
 import Sidebar from '@/components/Sidebar';
-import './styles.css'
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
