@@ -65,9 +65,14 @@ npm run dev
 nodemon server.js
 ```
 
-## Demo
-![Live Demo](https://www.youtube.com/watch?v=_p0HdTTMKzY)
+## Video
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=_p0HdTTMKzY" target="_blank">
+    <img src="./images/categories.jpg" alt="Demo Video" width="600" />
+  </a>
+</p>
+##Contact
 
-
+Jessi Joandy Pavia Martinez - [Email](mailto:jessi316866@gmail.com) - [Linkedin](https://www.linkedin.com/in/jessip-software/)
 
 
