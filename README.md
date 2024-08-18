@@ -66,7 +66,7 @@ nodemon server.js
 ```
 
 ## Demo
-![Live Demo](https://youtu.be/_p0HdTTMKzY)
+![Live Demo](https://www.youtube.com/watch?v=_p0HdTTMKzY)
 
 
 
