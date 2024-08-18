@@ -31,7 +31,7 @@ const Dashboard = () => {
       <ul>
         {transactions.map(transaction => (
           <li key={transaction.id}>
-            {transaction.date}: ${transaction.amount} - {transaction.description}
+            {transaction.date}: ${transaction.amount} - {transaction.Category ? transaction.Category.name : 'No Category'}
           </li>
         ))}
       </ul>

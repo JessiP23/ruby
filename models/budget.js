@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Budget.belongsTo(models.User, {foreignKey: 'userId'});
+      Budget.belongsTo(models.Category, {foreignKey: 'categoryId'});
     }
   }
   Budget.init({

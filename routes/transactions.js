@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { Transaction } = require('../models');
+const { Transaction, User, Category } = require('../models');
 
 // GET /api/transactions
 router.get('/', async (req, res) => {
   try {
-    const transactions = await Transaction.findAll();
+    const transactions = await Transaction.findAll({
+      include: [
+        { model: User, attributes: ['name'] },
+        { model: Category, attributes: ['name'] }
+      ]
+    });
     res.status(200).json(transactions);
   } catch (error) {
     console.error('Error fetching transactions:', error);

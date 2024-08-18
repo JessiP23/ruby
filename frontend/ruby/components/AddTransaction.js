@@ -28,7 +28,6 @@ function AddTransaction() {
 
       if (response.ok) {
         alert('Transaction added successfully');
-        // Optionally, reset form fields
         setUserId('');
         setCategoryId('');
         setAmount('');
