@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useClerk } from '@clerk/nextjs'; 
 import './styles.css';
-import { FaHome, FaTachometerAlt, FaThLarge, FaPowerOff, FaArrowLeft, FaArrowRight, FaSignInAlt } from 'react-icons/fa';
+import { FaHome, FaTachometerAlt, FaThLarge, FaPowerOff, FaArrowLeft, FaArrowRight, FaSignInAlt, FaUserCircle } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
@@ -31,6 +31,14 @@ const Sidebar = () => {
         </button>
       </div>
       <ul className="sidebar-nav">
+        {user && (
+          <li className='nav-item'>
+            <FaUserCircle size={36} className='user-icon' />
+            {isOpen && (
+              <span className='nav-text'>{user.firstName}</span>
+            )}
+          </li>
+        )}
         <li>
           <a href="/" className="nav-item">
             <FaHome size={28} />
