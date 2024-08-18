@@ -1,4 +1,4 @@
-'use client'
+'use client';
 // pages/dashboard.js
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
@@ -42,6 +42,34 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+  const deleteExpense = async (id) => {
+    try {
+      // Make the delete request
+      await api.delete(`/transactions/${id}`);
+
+      // Update the state to remove the deleted transaction
+      const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
+      setTransactions(updatedTransactions);
+
+      // Update the category data
+      const updatedCategoryMap = new Map();
+      updatedTransactions.forEach((transaction) => {
+        const categoryName = transaction.Category ? transaction.Category.name : 'No Category';
+        if (!updatedCategoryMap.has(categoryName)) {
+          updatedCategoryMap.set(categoryName, 0);
+        }
+        updatedCategoryMap.set(categoryName, updatedCategoryMap.get(categoryName) + transaction.amount);
+      });
+
+      const updatedCategories = Array.from(updatedCategoryMap.keys());
+      const updatedExpenses = Array.from(updatedCategoryMap.values());
+
+      setData({ categories: updatedCategories, expenses: updatedExpenses });
+    } catch (error) {
+      console.error('Error deleting expense', error);
+    }
+  };
+
   return (
     <div>
       <h1>Dashboard</h1>
@@ -51,6 +79,9 @@ const Dashboard = () => {
         {transactions.map(transaction => (
           <li key={transaction.id}>
             {transaction.date}: ${transaction.amount} - {transaction.Category ? transaction.Category.name : 'No Category'}
+            <button onClick={() => deleteExpense(transaction.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
