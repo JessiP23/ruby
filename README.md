@@ -25,5 +25,5 @@ This project is a full stack application developed using Next.js for the fronten
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone <https://github.com/JessiP23/ruby.git>
+cd <ruby>
