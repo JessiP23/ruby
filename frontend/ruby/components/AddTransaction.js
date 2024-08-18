@@ -1,11 +1,26 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '@/services/api';
 
 function AddTransaction() {
   const [userId, setUserId] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get('/categories');
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +43,7 @@ function AddTransaction() {
 
       if (response.ok) {
         alert('Transaction added successfully');
+        // Optionally, reset form fields
         setUserId('');
         setCategoryId('');
         setAmount('');
@@ -49,18 +65,22 @@ function AddTransaction() {
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
           required
-          className='text-blue-950'
         />
       </div>
       <div>
-        <label>Category ID:</label>
-        <input
-          type="text"
+        <label>Category:</label>
+        <select
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
           required
-          className='text-blue-950'
-        />
+        >
+          <option value="">Select a category</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <label>Amount:</label>
@@ -69,7 +89,6 @@ function AddTransaction() {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           required
-          className='text-blue-950'
         />
       </div>
       <div>
@@ -79,7 +98,6 @@ function AddTransaction() {
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
-          className='text-blue-950'
         />
       </div>
       <button type="submit">Add Transaction</button>
