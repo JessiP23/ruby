@@ -1,20 +1,37 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
+import ExpenseChart from '@/components/ExpenseChart';
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   const [budget, setBudget] = useState(0);
+  const [data, setData] = useState({ categories: [], expenses: [] });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const transactionResponse = await api.get('/transactions');
-        setTransactions(transactionResponse.data);
+        const transactionsData = transactionResponse.data;
+        setTransactions(transactionsData);
+// Process transactions to get categories and expenses
+const categoryMap = new Map();
+transactionsData.forEach((transaction) => {
+  const categoryName = transaction.Category ? transaction.Category.name : 'Uncategorized';
+  if (!categoryMap.has(categoryName)) {
+    categoryMap.set(categoryName, 0);
+  }
+  categoryMap.set(categoryName, categoryMap.get(categoryName) + transaction.amount);
+});
 
-        // Fetch the budget (assuming an endpoint exists)
-        const budgetResponse = await api.get('/budgets');
-        setBudget(budgetResponse.data);
+const categories = Array.from(categoryMap.keys());
+const expenses = Array.from(categoryMap.values());
+
+setData({ categories, expenses });
+
+// Fetch the budget (assuming an endpoint exists)
+const budgetResponse = await api.get('/budgets');
+setBudget(budgetResponse.data);
       } catch (error) {
         console.error('Error fetching data', error);
       }
@@ -35,6 +52,8 @@ const Dashboard = () => {
           </li>
         ))}
       </ul>
+      <h3>Expenses by Category</h3>
+      <ExpenseChart data={data} />
     </div>
   );
 };
