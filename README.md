@@ -21,8 +21,9 @@ This project is a full stack application developed using Next.js for the fronten
 - Node.js (v18 or later)
 - npm (v8 or later)
 - PostgreSQL
-- An AWS account for RDS
-- A Vercel account for frontend deployment
+- TailwindCSS
+- Clerk
+- PostgreSQL
 
 ## Setup Instructions
 
