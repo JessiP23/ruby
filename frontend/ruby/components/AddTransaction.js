@@ -49,6 +49,7 @@ function AddTransaction() {
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
           required
+          className='text-blue-950'
         />
       </div>
       <div>
@@ -58,6 +59,7 @@ function AddTransaction() {
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
           required
+          className='text-blue-950'
         />
       </div>
       <div>
@@ -67,6 +69,7 @@ function AddTransaction() {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           required
+          className='text-blue-950'
         />
       </div>
       <div>
@@ -76,6 +79,7 @@ function AddTransaction() {
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
+          className='text-blue-950'
         />
       </div>
       <button type="submit">Add Transaction</button>
