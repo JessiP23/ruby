@@ -7,7 +7,7 @@ import Sidebar from '@/components/Sidebar';
 
 const Dashboard = () => {
   const { isLoaded, user } = useUser();
-  const { openSignIn } = useClerk(); // Add this hook to open the sign-in modal
+  const { openSignIn } = useClerk(); 
   const [transactions, setTransactions] = useState([]);
   const [budget, setBudget] = useState(0);
   const [remainingBudget, setRemainingBudget] = useState(0);

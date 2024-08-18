@@ -2,10 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import api from '@/services/api';
 import Sidebar from '@/components/Sidebar';
+import { useClerk } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [newCategoryName, setNewCategoryName] = useState('');
+  const {user, openSignIn} = useClerk();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -31,6 +35,13 @@ const Categories = () => {
       console.error('Error adding category:', error);
     }
   };
+
+  if (!user) {
+    // If not authenticated, redirect to sign-in page
+    return (
+      <div className='text-center py-10 text-2xl'>Please <button onClick={openSignIn} className="text-blue-500">sign in</button> to access this page.</div>
+    );
+  }
 
   return (
     <div>

@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, signOut } = useClerk(); 
+  const { user, signOut, openSignIn } = useClerk(); 
   const router = useRouter();
 
   const handleToggleSidebar = () => {
@@ -16,7 +16,7 @@ const Sidebar = () => {
   };
 
   const handleSignInClick = () => {
-    router.push('/sign-in');
+    openSignIn();
   }
 
   const handleLogout = () => {
@@ -58,7 +58,7 @@ const Sidebar = () => {
         </li>
         ) : (
           <li>
-            <a href='/sign-in' className='nav-item' onClick={handleSignInClick}>
+            <a href='#' className='nav-item' onClick={handleSignInClick}>
               <FaSignInAlt size={28} />
               {isOpen && <span className='nav-text'>Sign In</span>}
             </a>
